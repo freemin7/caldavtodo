@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/editor" 
+	android:layout_height="wrap_content"
+	android:padding="0dp"
+	android:layout_width="fill_parent"
+	android:background="@color/color" android:orientation="vertical">
+    <EditText android:id="@+id/editorTodoText" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1">
+        <requestFocus></requestFocus>
+    </EditText>
+    <LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/editor" 
+	android:layout_height="wrap_content"
+	android:padding="0dp"
+	android:layout_width="fill_parent"
+	android:background="@color/color" android:orientation="horizontal">
+    <Button android:text="OK" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/editorOkButton"></Button>
+    <Button android:text="Delete" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/editorDeleteButton"></Button>
+    </LinearLayout>
+</LinearLayout>
