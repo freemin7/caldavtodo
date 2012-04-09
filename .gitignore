@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+#kde stuff
+.directory
+
 # generated files
 bin/
 gen/
