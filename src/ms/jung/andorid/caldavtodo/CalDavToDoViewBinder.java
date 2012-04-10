@@ -22,20 +22,22 @@ class CalDavToDoViewBinder implements SimpleCursorAdapter.ViewBinder
                 
 				if(cursor.getInt(cursor.getColumnIndexOrThrow(CalDavToDoProvider.STATE)) == 1)
 				{
+					// Check CheckBox
 					cb.setChecked(true); 
+					// Add a Striketrough
 					cb.setPaintFlags(cb.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 				}
 				else 
 				{
+					// Uncheck CheckBox
 					cb.setChecked(false);
+					// Remove Striketrough
 					cb.setPaintFlags( cb.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 				}
 				
 				cb.setText(cursor.getString(cursor.getColumnIndexOrThrow(CalDavToDoProvider.TODO)));
 				
-				
 				return true;
-
         }
         else if(viewId == R.id.colorBar)
         {
