@@ -2,6 +2,7 @@ package ms.jung.andorid.caldavtodo;
 
 
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SimpleCursorAdapter;
@@ -22,13 +23,16 @@ class CalDavToDoViewBinder implements SimpleCursorAdapter.ViewBinder
 				if(cursor.getInt(cursor.getColumnIndexOrThrow(CalDavToDoProvider.STATE)) == 1)
 				{
 					cb.setChecked(true); 
+					cb.setPaintFlags(cb.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 				}
 				else 
 				{
 					cb.setChecked(false);
+					cb.setPaintFlags( cb.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 				}
 				
 				cb.setText(cursor.getString(cursor.getColumnIndexOrThrow(CalDavToDoProvider.TODO)));
+				
 				
 				return true;
 

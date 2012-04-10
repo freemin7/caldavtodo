@@ -89,73 +89,15 @@ public class CalDavToDoActivity extends ListActivity
 						R.id.sqlID,
 						R.id.checkBox,
 						R.id.checkBox,
-						R.id.checkBox
-						
+						R.id.colorBar
 					}; 
 		
 		/// Create Cursor Adapter
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.row, c, from, to);
+		
+		/// For special values, which are supposed to go to non-text fields we have a special ViewBinder
+		adapter.setViewBinder(new CalDavToDoViewBinder());
 
-		/// For special values, which are supposed to go to non-text fields  
-		adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder()
-		{
-			public boolean setViewValue(View view, Cursor cursor, int columnIndex)
-			{   	      
-				Log.d("CalDavToDoActivity","SetViewBinder"); 
-				CheckBox cb = (CheckBox)view.findViewById(R.id.checkBox);
-				
-				/// Check if ToDo is checked
-				if(columnIndex == cursor.getColumnIndex(CalDavToDoProvider.STATE))
-				{
-					if(cursor.getInt(cursor.getColumnIndex(CalDavToDoProvider.STATE)) == 1)
-					{
-						cb.setChecked(true); 
-					}
-					else
-					{
-						cb.setChecked(false);
-					}
-					return true;
-				}
-				/// Set fore and background color
-				else if(columnIndex == cursor.getColumnIndex(CalDavToDoProvider.COLOR))
-				{
-					Log.d("CalDavToDoActivity","Color: " + cursor.getString(cursor.getColumnIndex(CalDavToDoProvider.COLOR)));
-					int color = cursor.getInt(cursor.getColumnIndex(CalDavToDoProvider.COLOR));
-					cb.setBackgroundColor(color);
-					
-					/**
-					 * W3C says:
-					 * Brightness = ((Red X 299) + (Green X 587) + (Blue X 114)) / 1000
-					 * The difference between the background brightness,
-					 * and the foreground brightness should be greater than 125.
-					 * Brightness_Black = (0 + 0 + 0) / 1000 = 0
-					 * Brightness_Color - Brightness_Black = Brightness_Color
-					 * and so on...
-					 */
-					
-					int r = (color & 0x00FF0000) >> 16;
-					int g = (color & 0x0000FF00) >> 8;
-					int b = (color & 0x000000FF) ;
-										
-					double value = ( (r * 299) + (g * 587) + (b * 114) ) / 1000.0;
-					
-					Log.d("CalDavToDoActivity","R="+r+"\tG="+g+"\tB="+b+"\tValue="+value);
-					
-					if(value < 125)
-					{
-						cb.setTextColor(0xFFFFFFFF); // Set it to White
-					}
-					else
-					{
-						cb.setTextColor(0xFF000000); // Set it to Black			
-					}
-					
-					return true;
-				}
-				return false;
-			}
-		});
 		listView.setAdapter(adapter);
 		
 		/// Recognize simple Click 
@@ -167,8 +109,8 @@ public class CalDavToDoActivity extends ListActivity
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 				{
 					/// Change in the Content Provider
-					CheckBox cb = (CheckBox)view.findViewById(R.id.checkBox);
-					TextView tv = (TextView)view.findViewById(R.id.sqlID);
+					CheckBox cb  = (CheckBox)view.findViewById(R.id.checkBox);
+					TextView tv  = (TextView)view.findViewById(R.id.sqlID);
 					ContentValues values = new ContentValues();
 					
 					/// Toggle Value

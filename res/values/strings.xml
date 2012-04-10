@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, CalDavToDoActivity!</string>
     <string name="app_name">CalDavToDo</string>
+    <string name="checkBoxDefault">CheckBox</string>
+    <string name="sqlIDDefault">sqlID</string>
+    <string name="colorBarDefault"></string>
+
     <color name="color">#000000</color>
+    <color name="pink">#ff00ff</color>
+
 </resources>
